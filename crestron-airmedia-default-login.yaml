@@ -1,0 +1,42 @@
+id: crestron-extended-login
+
+info:
+  name: Crestron AirMedia Extended Login
+  author: Death
+  severity: high
+
+http:
+  - method: POST
+    path:
+      - "{{BaseURL}}/userlogin.html"
+      - "{{BaseURL}}/cgi-bin/login"
+    
+    payloads:
+      username:
+        - admin
+        - Admin
+        - crestron
+        - user
+        - guest
+        - administrator
+      password:
+        - admin
+        - Admin
+        - crestron
+        - password
+        - ""
+        - "1234"
+        - "12345"
+        - "123456"
+        - "password123"
+    attack: pitchfork
+    body: "login={{username}}&passwd={{password}}"
+    
+    matchers:
+      - type: word
+        words:
+          - "dashboard"
+          - "success"
+          - "Welcome"
+          - "Crestron"
+        condition: or
